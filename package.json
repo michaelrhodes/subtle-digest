@@ -1,0 +1,33 @@
+{
+  "name": "subtle-digest",
+  "version": "0.0.0",
+  "description": "a simple wrapper around crypto.subtle.digest",
+  "main": "index.js",
+  "devDependencies": {
+    "tape": "~4.5.1",
+    "testling": "~1.7.1",
+    "u8a": "~1.0.0"
+  },
+  "scripts": {
+    "test": "testling -u"
+  },
+  "testling": {
+    "files": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelrhodes/subtle-digest"
+  },
+  "keywords": [
+    "webcrypto",
+    "subtle",
+    "digest",
+    "callback"
+  ],
+  "author": "Michael Rhodes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelrhodes/subtle-digest/issues"
+  },
+  "homepage": "https://github.com/michaelrhodes/subtle-digest"
+}
