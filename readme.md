@@ -1,7 +1,9 @@
 # subtle-digest
+
 a simple (callback-based) wrapper around `crypto.subtle.digest`
 
 ## Install
+
 ```sh
 $ npm install subtle-digest
 ```
@@ -46,21 +48,6 @@ sha1(new ArrayBuffer, function (err, buf) {
 })
 ```
 
-#### Errors
-
-If you attempt to use an unsupported algorithm, you _might_ be forwarded an error from the browser like so:
-
-```js
-var digest = require('subtle-digest')
-
-digest('sham-1', new ArrayBuffer, function (err, buf) {
-  err.message
-  => Algorithm: Unrecognized name
-})
-```
-
-But the browser might also just throw an error and never trigger your callback so you should probably use `subtle-digest/supports` before attempting to hash.
-
 #### Dealing in strings
 
 Based on my own usage, I suspect a lot of people want hexadecimal string representations of their hashes. I consider that outside of the scope of this module, but it’s pretty easy to acheive:
@@ -88,6 +75,32 @@ digest('sha1', u8a('some string'), function (err, buf) {
 })
 ```
 
+#### Errors
+
+If you attempt to use an unsupported algorithm, you _might_ be forwarded an error from the browser like so:
+
+```js
+var digest = require('subtle-digest')
+
+digest('sham-1', new ArrayBuffer, function (err, buf) {
+  err instanceof Error
+  => true
+})
+```
+
+But some browsers, _cough_ Safari _cough_, might just throw an error and never trigger the callback, so you should probably use `subtle-digest/supports` before attempting to hash anything. Having said _that_, if you’re happy to sacrifice performance for convenience, you could just require `subtle-digest/lazy`
+
+```js
+var digest = require('subtle-digest/lazy')
+
+digest('sham-1', new ArrayBuffer, function (err, buf) {
+  err instanceof Error
+  => true
+})
+```
+
+This will always work, regardless of the browser, because it automagically runs `subtle-digest/supports` before making any calls to `subtle-digest`. The original API is maintained through some a bit of queuing and dynamic function invocation.
+
 ## Page weight
 
 `require('subtle-digest')`
@@ -102,9 +115,17 @@ digest('sha1', u8a('some string'), function (err, buf) {
 
 | compression                      |    size |
 | :------------------------------- | ------: |
-| subtle-digest/supports.js        | 1.41 kB |
-| subtle-digest/supports.min.js    |   998 B |
-| subtle-digest/supports.min.js.gz |   549 B |
+| subtle-digest/supports.js        | 1.39 kB |
+| subtle-digest/supports.min.js    |   979 B |
+| subtle-digest/supports.min.js.gz |   527 B |
+
+`require('subtle-digest/lazy')`
+
+| compression                  |    size |
+| :--------------------------- | ------: |
+| subtle-digest/lazy.js        | 2.71 kB |
+| subtle-digest/lazy.min.js    | 1.65 kB |
+| subtle-digest/lazy.min.js.gz |   768 B |
 
 ## Running the tests
 

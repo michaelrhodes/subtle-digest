@@ -2,6 +2,7 @@ var test = require('tape')
 var hex = require('u8a/to-hex')
 var supports = require('./supports')
 var subtle = require('./index')
+var lazy = require('./lazy')
 
 var tick = '✔︎'
 
@@ -15,7 +16,7 @@ test('it can test for support', function (assert) {
 function further (assert) {
   var input = new ArrayBuffer
 
-  usage(fuzzy(error(end)))
+  usage(fuzzy(error(lazyyyyy(end))))
 
   function usage (next) {
     subtle('SHA-1', input, function (err, buf) {
@@ -55,6 +56,34 @@ function further (assert) {
         assert.equal(err instanceof Error, true)
         next(assert)
       })
+    }
+  }
+
+  function lazyyyyy (next) {
+    return function (assert) {
+      lazy('sha-1', input, function (err, buf) {
+        assert.comment('it has a lazy mode')
+        assert.comment('which works like normal')
+        check(err, buf)
+
+        lazy('fake-1', input, function (err, buf) {
+          assert.comment('but it catches unsupported errors')
+          assert.comment('(algo, buf, cb)')
+          echeck(err, buf)
+
+          var fake256 = lazy('fake256')
+          fake256(input, function (err, buf) {
+            assert.comment('(algo)(buf, cb)')
+            echeck(err, buf)
+            next(assert)
+          })
+        })
+      })
+
+      function echeck (err, buf) {
+        assert.equal(err instanceof Error, true, tick)
+        assert.equal(typeof buf, 'undefined', tick)
+      }
     }
   }
 
