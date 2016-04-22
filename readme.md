@@ -1,6 +1,11 @@
 # subtle-digest
 a simple (callback-based) wrapper around `crypto.subtle.digest`
 
+## Install
+```sh
+$ npm install subtle-digest
+```
+
 ## Usage
 
 ### Testing for algorithm support
