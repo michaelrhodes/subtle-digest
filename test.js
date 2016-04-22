@@ -15,7 +15,7 @@ test('it can test for support', function (assert) {
 function further (assert) {
   var input = new ArrayBuffer
 
-  usage(fuzzy(end))
+  usage(fuzzy(error(end)))
 
   function usage (next) {
     subtle('SHA-1', input, function (err, buf) {
@@ -44,6 +44,16 @@ function further (assert) {
           check(err, buf)
           next(assert)
         })
+      })
+    }
+  }
+
+  function error (next) {
+    return function (assert) {
+      supports('fake-1', function (yep, err) {
+        assert.equal(yep, false, tick)
+        assert.equal(err instanceof Error, true)
+        next(assert)
       })
     }
   }
