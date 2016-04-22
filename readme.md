@@ -99,7 +99,7 @@ digest('sham-1', new ArrayBuffer, function (err, buf) {
 })
 ```
 
-This will always work, regardless of the browser, because it automagically runs `subtle-digest/supports` before making any calls to `subtle-digest`. The original API is maintained through some a bit of queuing and dynamic function invocation.
+This will always work, regardless of the browser, because it automagically runs `subtle-digest/supports` before making any calls to `subtle-digest`. The original API is maintained through a bit of queuing and dynamic function invocation.
 
 ## Page weight
 
