@@ -50,7 +50,7 @@ sha1(new ArrayBuffer, function (err, buf) {
 
 #### Dealing in strings
 
-Based on my own usage, I suspect a lot of people want hexadecimal string representations of their hashes. I consider that outside of the scope of this module, but it’s pretty easy to acheive:
+Based on my own usage, I suspect a lot of people want hexadecimal string representations of their hashes. I consider that outside of the scope of this module, but it’s pretty easy to achieve:
 
 ```js
 var digest = require('subtle-digest')
