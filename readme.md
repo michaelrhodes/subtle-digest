@@ -103,7 +103,7 @@ digest('sha1', u8a('some string'), function (err, buf) {
 
 ## Running the tests
 
-Until [testling](https://ci.testling.com/) comes back (or is replaced by something elegant) you can run the tests in any browser yourself:
+Until [testling](https://ci.testling.com/) comes back (or is replaced by something elegant) you can run the tests yourself in any browser:
 
 ```sh
 $ git clone git@github.com:michaelrhodes/subtle-digest
