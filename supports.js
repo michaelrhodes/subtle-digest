@@ -1,6 +1,7 @@
+var scope = require('./scope')
 var subtle = require('./subtle')
 var normal = require('./normal')
-var buf = 'ArrayBuffer' in window ? new ArrayBuffer : null
+var buf = 'ArrayBuffer' in scope ? new ArrayBuffer : null
 
 module.exports = function (algo, cb) {
   if (!buf) return nope(new Error('ArrayBuffer is not supported'))
